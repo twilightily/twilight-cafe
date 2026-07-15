@@ -45,12 +45,27 @@ body {
 /* Ensure paragraphs have comfortable spacing */
 p {
     margin: 0 0 1.15rem 0;
+            color: #A675A1;
+            font-size: 30px;
+            text-align: left;
+            font-family: rockwell;
+        
 }
 
 /* Slightly reduce heading line-height so headings remain compact */
-h1,
+h1 {
+            color: #CEA2AC;
+            font-size: 60px;
+            text-align: left;
+            font-family: franklin gothic medium;
+        }
 h2,
-h3,
+h3{
+            color: #7BDFF2;
+            font-size: 30px;
+            text-align: left;
+            font-family: lucida sans typewriter;
+        }
 h4,
 h5,
 h6 {
@@ -61,6 +76,8 @@ h6 {
 html,
 body {
     min-width: 0;
+    background-color: #470130;
+            
 }
 
 /* Global text wrapping for headings, paragraphs, lists, anchors and common containers */
