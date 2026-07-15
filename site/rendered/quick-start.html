@@ -1,0 +1,273 @@
+
+
+
+
+ 
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quick Start</title>
+    <meta name="color-scheme" content="light dark" />
+
+    
+    <link rel="stylesheet" href="/static/styles/main.css" />
+
+    
+    <link rel="icon" href="/static/images/anna.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/anna.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/anna.png" />
+    <link rel="apple-touch-icon" href="/static/images/anna.png" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)" />
+
+    
+    <link id="hljs-light" rel="stylesheet" media="(prefers-color-scheme: light)"
+        href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.min.css" />
+    <link id="hljs-dark" rel="stylesheet" media="(prefers-color-scheme: dark)"
+        href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github-dark.min.css" />
+
+    
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+
+    <link rel="alternate" type="application/atom+xml" title="feed" href="/feed.xml" />
+
+    
+    
+    <script>
+        const eventSource = new EventSource("http://localhost:8000/events");
+        eventSource.onmessage = function (event) {
+            location.reload();
+        };
+    </script>
+      
+    <script src="/static/scripts/graph.js" defer></script>
+    
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Quick Start" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="" />
+
+    <meta name="description" content="" />
+
+    <script defer>
+        if (typeof hljs !== 'undefined') {
+            hljs.highlightAll();
+        }
+    </script>
+</head>
+
+
+<body class="site-body">
+
+    
+
+ 
+
+<header class="site-header">
+    <div class="container header-inner">
+        <div class="brand">
+            <a href="/" aria-label="anna-docs"><img src="/static/images/anna.png"
+                    alt="anna-docs" class="brand-logo" /></a>
+        </div>
+        <nav id="mobile-nav" class="site-nav" aria-label="Main navigation">
+            
+            
+            <a class="navitem" href="/quick-start.html">Quick Start</a>
+            
+            
+            
+            <a class="navitem" href="/docs.html">Docs</a>
+            
+            
+            
+            <a class="navitem" href="/developer-guide.html">Dev Guide</a>
+            
+            
+            
+            <a class="navitem" href="/tags.html">Tags</a>
+            
+            
+            
+            <a class="navitem" href="/posts/building-anna/index.html">Anna Blog</a>
+            
+            
+        </nav>
+        <div class="actions">
+            <button class="hamburger" id="hamburger" aria-controls="mobile-nav" aria-expanded="false"
+                aria-label="Open menu">☰</button>
+            <button class="search-btn" id="openSearch" aria-label="Search (Cmd/Ctrl+K)">🔎</button>
+        </div>
+    </div>
+</header>
+
+
+
+<div class="search-overlay" id="searchOverlay" aria-hidden="true">
+  <div class="search-box" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-input-row">
+      <input id="searchSiteInput" type="text" placeholder="Search posts or pages — fuzzy search" autocomplete="off"
+        aria-label="Search site" />
+      <button id="closeSearch" class="close-search" aria-label="Close search">✕</button>
+    </div>
+    <div class="search-hint">Show fuzzy search — try partial words or titles</div>
+    <div id="site_search_result" class="search-results"></div>
+  </div>
+</div>
+<script>
+  (function () {
+    const overlay = document.getElementById('searchOverlay');
+    const input = document.getElementById('searchSiteInput');
+    const results = document.getElementById('site_search_result');
+    const openBtn = document.getElementById('openSearch');
+    const closeBtn = document.getElementById('closeSearch');
+
+    function show() { overlay.classList.add('open'); overlay.setAttribute('aria-hidden', 'false'); input.focus(); }
+    function hide() { overlay.classList.remove('open'); overlay.setAttribute('aria-hidden', 'true'); input.value = ''; results.innerHTML = ''; }
+
+    document.addEventListener('keydown', function (e) {
+      if ((e.key === 'k' || e.key === 'K') && (e.metaKey || e.ctrlKey)) { e.preventDefault(); show(); }
+      if (e.key === 'Escape') { hide(); }
+    });
+
+    if (openBtn) openBtn.addEventListener('click', function () { show(); });
+    if (closeBtn) closeBtn.addEventListener('click', function () { hide(); });
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) hide(); });
+
+    
+    let timeout; input.addEventListener('input', function () {
+      clearTimeout(timeout); timeout = setTimeout(() => {
+        const q = input.value.trim().toLowerCase(); if (!q) { results.innerHTML = ''; return }
+        fetch('/static/index.json').then(r => r.json()).then(data => {
+          results.innerHTML = ''; let found = false; for (key in data) { const title = data[key]['Frontmatter']['Title'] || ''; if (title.toLowerCase().includes(q)) { found = true; const a = document.createElement('a'); a.textContent = title; a.href = '/' + data[key]['CompleteURL']; a.className = 'search-link'; results.appendChild(a); results.appendChild(document.createElement('br')); } }
+          if (!found) results.textContent = 'No results';
+        }).catch(err => { console.error(err); results.textContent = 'Search unavailable' })
+      }, 180)
+    });
+  })();
+</script>
+ 
+    <main class="container site-main" role="main">
+        <article class="content">
+            <section class="body">
+
+                
+                <div class="post-description">
+                    <h1>Quick Start</h1>
+                    <div class="page-date">
+                        
+                        Published on 2024-04-28
+                        
+                    </div>
+                    <div class="authors-placeholder">
+                        
+                    </div>
+                    <div class="tags-placeholder">
+                        
+                    </div>
+                </div>
+                
+
+                <h2 id="installation">Installation</h2>
+<blockquote>
+<p>Download a prebuilt binary for your platform from the latest release:</p>
+</blockquote>
+<h3 id="macos">MacOS</h3>
+<pre><code class="language-sh">brew install anna-ssg/anna/anna
+</code></pre>
+<h3 id="gnulinux-targz">GNU/Linux (tar.gz):</h3>
+<blockquote>
+<ol>
+<li>Linux (x86_64): <a href="https://github.com/anna-ssg/anna/releases/latest/download/anna_Linux_x86_64.tar.gz">anna_Linux_x86_64.tar.gz</a></li>
+<li><code>tar -xzf anna_Linux_x86_64.tar.gz</code></li>
+<li><code>./anna</code></li>
+</ol>
+</blockquote>
+<h3 id="windows-1011-x86-64">Windows 10/11 (x86_64):</h3>
+<blockquote>
+<ol>
+<li>Download <a href="https://github.com/anna-ssg/anna/releases/latest/download/anna_Windows_x86_64.zip">anna_Windows_x86_64.zip</a></li>
+<li>Unzip <code>anna_Windows_*.zip</code></li>
+<li>Run <code>anna.exe</code> from the extracted folder in a terminal</li>
+</ol>
+</blockquote>
+<hr>
+<h2 id="bootstrap-create-a-site-directory">Bootstrap (create a <code>site/</code> directory)</h2>
+<p>If you don't already have a <code>site/</code> directory, Anna can initialize one for you with a default layout.</p>
+<pre><code class="language-sh"># will ask to download the default site layout when config is missing
+./anna 
+</code></pre>
+<hr>
+<h2 id="usage">Usage</h2>
+<h3 id="basic-render">Basic render</h3>
+<p>Render the site found at <code>site/</code> (default):</p>
+<pre><code class="language-sh">anna
+</code></pre>
+<p>Specify a path:</p>
+<pre><code class="language-sh">anna -p ./site
+</code></pre>
+<h3 id="serve-with-live-reload">Serve with live reload</h3>
+<pre><code class="language-sh">anna -s
+</code></pre>
+<h3 id="version-and-debug">Version and debug</h3>
+<p>Show the version (includes embedded commit when present):</p>
+<pre><code class="language-sh">anna -v
+</code></pre>
+<p>Show usage and all flags:</p>
+<pre><code class="language-sh">anna -h
+</code></pre>
+
+            </section>
+        </article>
+
+        
+    </main>
+
+    
+<footer class="site-footer">
+    <div class="container footer-inner">
+        <div class="copyright">Rendered using <a href="https://github.com/anna-ssg/anna">anna</a> ❤️</div>
+        <div class="credits">&copy; <span id="site-year"></span> anna-docs</div>
+    </div>
+    <script> (function () { var el = document.getElementById('site-year'); if (el) el.textContent = new Date().getFullYear(); })();
+
+         
+        (function () {
+            var ham = document.getElementById('hamburger'); if (!ham) return;
+
+            function setNavStateOnLoadOrResize() {
+                
+                if (window.innerWidth > 700) {
+                    document.body.classList.remove('nav-open');
+                    ham.setAttribute('aria-expanded', 'false');
+                } else {
+                    
+                    document.body.classList.remove('nav-open');
+                    ham.setAttribute('aria-expanded', 'false');
+                }
+            }
+
+            function toggleNav() {
+                var isOpen = document.body.classList.toggle('nav-open');
+                ham.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            }
+
+            
+            setNavStateOnLoadOrResize();
+
+            ham.addEventListener('click', toggleNav);
+            document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { document.body.classList.remove('nav-open'); ham.setAttribute('aria-expanded', 'false'); } });
+            window.addEventListener('resize', setNavStateOnLoadOrResize);
+            
+            document.addEventListener('click', function (e) { if (!document.body.classList.contains('nav-open')) return; if (!e.target.closest || !e.target.closest('.site-header')) { document.body.classList.remove('nav-open'); ham.setAttribute('aria-expanded', 'false'); } });
+        })();</script>
+</footer>
+
+</body>
+
+</html>
+

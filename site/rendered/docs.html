@@ -1,0 +1,1045 @@
+
+
+
+
+ 
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anna Documentation</title>
+    <meta name="color-scheme" content="light dark" />
+
+    
+    <link rel="stylesheet" href="/static/styles/main.css" />
+
+    
+    <link rel="icon" href="/static/images/anna.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/anna.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/anna.png" />
+    <link rel="apple-touch-icon" href="/static/images/anna.png" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)" />
+
+    
+    <link id="hljs-light" rel="stylesheet" media="(prefers-color-scheme: light)"
+        href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.min.css" />
+    <link id="hljs-dark" rel="stylesheet" media="(prefers-color-scheme: dark)"
+        href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github-dark.min.css" />
+
+    
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+
+    <link rel="alternate" type="application/atom+xml" title="feed" href="/feed.xml" />
+
+    
+    
+    <script>
+        const eventSource = new EventSource("http://localhost:8000/events");
+        eventSource.onmessage = function (event) {
+            location.reload();
+        };
+    </script>
+      
+    <script src="/static/scripts/graph.js" defer></script>
+    
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Anna Documentation" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="" />
+
+    <meta name="description" content="" />
+
+    <script defer>
+        if (typeof hljs !== 'undefined') {
+            hljs.highlightAll();
+        }
+    </script>
+</head>
+
+
+<body class="site-body">
+
+    
+
+ 
+
+<header class="site-header">
+    <div class="container header-inner">
+        <div class="brand">
+            <a href="/" aria-label="anna-docs"><img src="/static/images/anna.png"
+                    alt="anna-docs" class="brand-logo" /></a>
+        </div>
+        <nav id="mobile-nav" class="site-nav" aria-label="Main navigation">
+            
+            
+            <a class="navitem" href="/quick-start.html">Quick Start</a>
+            
+            
+            
+            <a class="navitem" href="/docs.html">Docs</a>
+            
+            
+            
+            <a class="navitem" href="/developer-guide.html">Dev Guide</a>
+            
+            
+            
+            <a class="navitem" href="/tags.html">Tags</a>
+            
+            
+            
+            <a class="navitem" href="/posts/building-anna/index.html">Anna Blog</a>
+            
+            
+        </nav>
+        <div class="actions">
+            <button class="hamburger" id="hamburger" aria-controls="mobile-nav" aria-expanded="false"
+                aria-label="Open menu">☰</button>
+            <button class="search-btn" id="openSearch" aria-label="Search (Cmd/Ctrl+K)">🔎</button>
+        </div>
+    </div>
+</header>
+
+
+
+<div class="search-overlay" id="searchOverlay" aria-hidden="true">
+  <div class="search-box" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-input-row">
+      <input id="searchSiteInput" type="text" placeholder="Search posts or pages — fuzzy search" autocomplete="off"
+        aria-label="Search site" />
+      <button id="closeSearch" class="close-search" aria-label="Close search">✕</button>
+    </div>
+    <div class="search-hint">Show fuzzy search — try partial words or titles</div>
+    <div id="site_search_result" class="search-results"></div>
+  </div>
+</div>
+<script>
+  (function () {
+    const overlay = document.getElementById('searchOverlay');
+    const input = document.getElementById('searchSiteInput');
+    const results = document.getElementById('site_search_result');
+    const openBtn = document.getElementById('openSearch');
+    const closeBtn = document.getElementById('closeSearch');
+
+    function show() { overlay.classList.add('open'); overlay.setAttribute('aria-hidden', 'false'); input.focus(); }
+    function hide() { overlay.classList.remove('open'); overlay.setAttribute('aria-hidden', 'true'); input.value = ''; results.innerHTML = ''; }
+
+    document.addEventListener('keydown', function (e) {
+      if ((e.key === 'k' || e.key === 'K') && (e.metaKey || e.ctrlKey)) { e.preventDefault(); show(); }
+      if (e.key === 'Escape') { hide(); }
+    });
+
+    if (openBtn) openBtn.addEventListener('click', function () { show(); });
+    if (closeBtn) closeBtn.addEventListener('click', function () { hide(); });
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) hide(); });
+
+    
+    let timeout; input.addEventListener('input', function () {
+      clearTimeout(timeout); timeout = setTimeout(() => {
+        const q = input.value.trim().toLowerCase(); if (!q) { results.innerHTML = ''; return }
+        fetch('/static/index.json').then(r => r.json()).then(data => {
+          results.innerHTML = ''; let found = false; for (key in data) { const title = data[key]['Frontmatter']['Title'] || ''; if (title.toLowerCase().includes(q)) { found = true; const a = document.createElement('a'); a.textContent = title; a.href = '/' + data[key]['CompleteURL']; a.className = 'search-link'; results.appendChild(a); results.appendChild(document.createElement('br')); } }
+          if (!found) results.textContent = 'No results';
+        }).catch(err => { console.error(err); results.textContent = 'Search unavailable' })
+      }, 180)
+    });
+  })();
+</script>
+ 
+    <main class="container site-main" role="main">
+        <article class="content">
+            <section class="body">
+
+                
+                <div class="post-description">
+                    <h1>Anna Documentation</h1>
+                    <div class="page-date">
+                        
+                        Published on 2024-04-28
+                        
+                    </div>
+                    <div class="authors-placeholder">
+                        
+                    </div>
+                    <div class="tags-placeholder">
+                        
+                    </div>
+                </div>
+                
+
+                <p>Anna is a high-performance static site generator built in Go, designed for speed and simplicity. It features parallel rendering, live reload, responsive templates with support for collections, tags, and advanced Markdown features.</p>
+<h1 id="command-line-interface">Command-Line Interface</h1>
+<p>Anna provides a powerful CLI for building and managing your site. Here are the available commands and flags:</p>
+<h2 id="basic-usage">Basic Usage</h2>
+<pre><code class="language-sh"># Render the site
+./anna
+
+# Serve with live reload
+./anna -s
+
+# Show version
+./anna -v
+
+# Show help
+./anna -h
+</code></pre>
+<h2 id="flags">Flags</h2>
+<ul>
+<li><code>-p, --path &lt;path&gt;</code> - Specify the site directory (default: <code>site/</code>)</li>
+<li><code>-s, --serve</code> - Serve the rendered site and watch for file updates with live reload</li>
+<li><code>-d, --draft</code> - Include draft posts (pages with <code>draft: true</code> in frontmatter)</li>
+<li><code>-a, --addr &lt;addr&gt;</code> - Specify the address to serve on (default: <code>localhost:8000</code>)</li>
+<li><code>-v, --version</code> - Print the current version and commit hash</li>
+<li><code>--prof</code> - Enable profiling to measure rendering performance</li>
+<li><code>-h, --help</code> - Show help message</li>
+</ul>
+<h2 id="interactive-setup">Interactive Setup</h2>
+<p>If you don't have a site directory, Anna can help you set one up:</p>
+<pre><code class="language-sh"># Just run anna without a config and it will prompt you
+./anna
+</code></pre>
+<hr>
+<h1 id="directory-structure">Directory structure</h1>
+<p>Anna requires the following directory structure</p>
+<pre><code class="language-text">site
+├── content
+│   ├── docs.md
+│   ├── index.md*
+│   ├── sub0folder
+│   │   ├── bench.md
+│   │   ├── building-anna
+│   │   │   ├── images
+│   │   │   │   ├── bench.png
+│   │   │   │   └── wizard.gif
+│   │   │   ├── index.md
+│   │   └── weekly-progress
+│   │       ├── week-1.md
+│   │       ├── week-2.md
+│   │       └── week-3.md
+├── layout
+│   ├── collection-subpage.html*
+│   ├── collections.html*
+│   ├── config.json*
+│   ├── page.html*
+│   ├── partials
+│   │   ├── head.html
+│   ├── robots.txt*
+│   ├── tag-subpage.html*
+│   |── tags.html*
+│   ├── collection-subpage.html*
+│   └── collections.html*
+├── public
+└── static
+    ├── fonts
+    │   ├── VictorMono
+    │   │   └── victormono_italics.ttf
+    ├── scripts
+    │   └── light.js
+    ├── style.css
+    ├── styles
+       └── tokyo.css
+</code></pre>
+<p>Files marked <code>*</code> are required and cannot be omitted</p>
+<hr>
+<h1 id="description-of-the-directory-structure">Description of the directory structure</h1>
+<ul>
+<li>All of the site data, including the content, configuration and static files, are stores in site/. The rendered/ directory generated by ssg is also stored in <code>site/</code>.</li>
+<li>The markdown content for the site is stored in <code>content/</code>. It can contain subdirectories along with images as the folder is recursively rendered.
+<ul>
+<li>The contents of this dir is rendered to the root of <code>rendered/</code></li>
+</ul>
+</li>
+<li>Static assets such as fonts are stored in <code>static/</code></li>
+<li>Scripts are stored in the <code>scripts/</code> dir in <code>static/</code></li>
+<li>The layout of the site is configured using html files in <code>layout/</code>
+<ul>
+<li>The <code>config.json</code> file stores the configuration of the site and includes details such as the baseURL</li>
+<li>The <code>collections.html</code>, <code>collection-subpage.html</code>, <code>tags.html</code> and other necessary layouts define the structure of the various pages of the site such as <code>collections.html</code>, <code>collections/[[sub-page]].html</code> and other SSG generated pages</li>
+<li>Additional layouts can be created and set for various pages of the site using the <code>layout</code> frontmatter field</li>
+<li>The layout files can be composed of smaller html files which are stored in the <code>partials/</code> folder</li>
+</ul>
+</li>
+<li>Contents in <code>public/</code> are rendered to the root of <code>rendered/</code></li>
+</ul>
+<hr>
+<h1 id="building-layouts">Building layouts</h1>
+<ul>
+<li>Each layout file can access any data from the entire ssg</li>
+<li>The <code>tags.html</code> page can access the following data:
+<ul>
+<li><code>{{.DeepDataMerge}}</code></li>
+<li><code>{{.PageURL}}</code></li>
+<li><code>{{.TemplateData}}</code></li>
+<li><code>{{.TagNames}}</code></li>
+</ul>
+</li>
+<li>The remaining pages can access the following data
+<ul>
+<li><code>{{.DeepDataMerge}}</code></li>
+<li><code>{{.PageURL}}</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="pageurl">PageURL</h2>
+<p>The <code>{{.PageURL}}</code> is of the form <code>index.html</code>, <code>collections/tech/go.html</code> and so on.</p>
+<h2 id="elements-stored-in-deepdatamerge">Elements stored in <code>DeepDataMerge</code></h2>
+<ul>
+<li><code>{{.DeepDataMerge.Collections}}</code> - A map that stores the template data of the collection sub-pages for a particular collection url</li>
+<li><code>{{.DeepDataMerge.CollectionsMap}}</code> - A map that stores a slice of templates of all pages for a particular collection url</li>
+<li><code>{{.DeepDataMerge.JSONIndex}}</code> - Stores the JSON index generated for a particular site (primarily used for search and graphing of tags)</li>
+<li><code>{{.DeepDataMerge.LayoutConfig}}</code> - Stores the layout parsed from <code>config.json</code></li>
+<li><code>{{.DeepDataMerge.Templates}}</code> - A map that stores the template data of all the pages of the site for the particular url(the URL is the PageURL for the specified page)</li>
+<li><code>{{.DeepDataMerge.Tags}}</code> - A map that stores the template data of the tag sub-pages for a particular tag url</li>
+<li><code>{{.DeepDataMerge.TagsMap}}</code> - A map that stores a slice of templates of all pages for a particular tag url</li>
+</ul>
+<h2 id="layout-partials">Layout Partials</h2>
+<p>Anna supports layout partials, which are reusable HTML template fragments stored in the <code>layout/partials/</code> directory. Partials allow you to break down complex layouts into smaller, manageable pieces that can be shared across multiple layout files.</p>
+<h3 id="how-partials-work">How Partials Work</h3>
+<p>Partials use Go's template system with the <code>{{define}}</code> and <code>{{template}}</code> directives:</p>
+<ol>
+<li><strong>Defining a Partial</strong>: Use <code>{{define &quot;partialName&quot;}}</code> to define a partial template</li>
+<li><strong>Including a Partial</strong>: Use <code>{{template &quot;partialName&quot; .}}</code> to include the partial in a layout</li>
+</ol>
+<p>Partials have access to the same data context as the main layout templates, including:</p>
+<ul>
+<li><code>{{.DeepDataMerge}}</code> - All site data</li>
+<li><code>{{.PageURL}}</code> - Current page URL</li>
+<li><code>{{.TemplateData}}</code> - Page-specific template data</li>
+</ul>
+<h3 id="example-partial-structure">Example Partial Structure</h3>
+<p>Here's how the built-in partials are organized:</p>
+<pre><code>layout/partials/
+├── head.html      # HTML head section with meta tags, stylesheets, and scripts
+├── header.html    # Site header with navigation and branding
+├── footer.html    # Site footer with copyright and links
+└── search.html    # Search modal/component
+</code></pre>
+<h3 id="creating-and-using-partials">Creating and Using Partials</h3>
+<p><strong>Example: Defining a partial in <code>head.html</code></strong></p>
+<pre><code class="language-html">{{define &quot;head&quot;}}
+&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;title&gt;{{index .DeepDataMerge.Templates .PageURL | .Frontmatter.Title}}&lt;/title&gt;
+    &lt;!-- Additional head content --&gt;
+&lt;/head&gt;
+{{end}}
+</code></pre>
+<p><strong>Example: Using partials in a layout file (<code>page.html</code>)</strong></p>
+<pre><code class="language-html">{{define &quot;page&quot;}}
+{{template &quot;head&quot; .}}
+
+&lt;body&gt;
+    {{template &quot;header&quot; .}}
+    
+    &lt;main&gt;
+        &lt;!-- Page content --&gt;
+        {{index .DeepDataMerge.Templates .PageURL | .Body}}
+    &lt;/main&gt;
+    
+    {{template &quot;footer&quot; .}}
+&lt;/body&gt;
+&lt;/html&gt;
+{{end}}
+</code></pre>
+<h3 id="best-practices-for-partials">Best Practices for Partials</h3>
+<ol>
+<li>
+<p><strong>Naming Convention</strong>: Use descriptive names that match the partial's purpose (e.g., &quot;head&quot;, &quot;header&quot;, &quot;footer&quot;)</p>
+</li>
+<li>
+<p><strong>Data Access</strong>: Always check if page data exists before accessing it:</p>
+<pre><code class="language-html">{{$PageData := index .DeepDataMerge.Templates .PageURL}}
+{{if eq $PageData nil}}
+{{$PageData = .TemplateData}}
+{{end}}
+</code></pre>
+</li>
+<li>
+<p><strong>Modularity</strong>: Keep partials focused on a single responsibility</p>
+</li>
+<li>
+<p><strong>Reusability</strong>: Design partials to work across different layout types</p>
+</li>
+<li>
+<p><strong>Conditional Logic</strong>: Use template conditionals to show/hide content based on page data</p>
+</li>
+</ol>
+<h3 id="common-partial-patterns">Common Partial Patterns</h3>
+<ul>
+<li><strong>Head Section</strong>: Meta tags, stylesheets, scripts, and SEO data</li>
+<li><strong>Navigation</strong>: Site-wide navigation menus and breadcrumbs</li>
+<li><strong>Footers</strong>: Copyright notices, social links, and site information</li>
+<li><strong>Components</strong>: Reusable UI components like search forms, modals, or sidebars</li>
+</ul>
+<p>Partials make your layouts more maintainable by separating concerns and reducing code duplication across different page types.</p>
+<hr>
+<h1 id="accessing-specific-page-data">Accessing specific page data</h1>
+<p>The URL for the current page can be accessed using <code>{{.PageURL}}</code></p>
+<p>To access the data for a particular page, use Go templating syntax:</p>
+<pre><code class="language-html">{{$PageData := index .DeepDataMerge.Templates .PageURL}}
+{{$PageData.CompleteURL}}
+</code></pre>
+<p>To access the page data for <code>collections.html</code>, <code>tags.html</code> and their respective partials, set</p>
+<pre><code class="language-html">{{$PageData := .TemplateData}}
+</code></pre>
+<p>All of the following page data fields can be accessed in the above manner:</p>
+<ul>
+<li><code>{{$PageData.CompleteURL}}</code> : Returns the complete url of the given page</li>
+<li><code>{{$PageData.Date}}</code> : Returns the last modified date of the current file</li>
+<li><code>{{$PageData.Frontmatter.[Tagname]}}</code> : Returns the value of the frontmatter tag
+<ul>
+<li>Example: <code>{{$PageData.Frontmatter.Title}}</code> : Returns the value of the title tag</li>
+</ul>
+</li>
+<li><code>{{$PageData.Body}}</code> : Returns the markdown body rendered to HTML</li>
+</ul>
+<h2 id="custom-template-functions">Custom template functions</h2>
+<p>Anna has the following pre-defined template function:</p>
+<ul>
+<li>
+<p><code>func strSliceContains(items []string, search string) bool</code>
+This function returns true if a <code>search</code> string is present in a slice of strings (<code>items</code>), else returns false</p>
+<p>Usage: <code>{{if strSliceContains $PageData.Frontmatter.Collections &quot;posts&quot;}}</code></p>
+</li>
+</ul>
+<hr>
+<h1 id="frontmatter">Frontmatter</h1>
+<p>All markdown content files <strong>must</strong> start with YAML frontmatter. Anna requires at minimum a <code>title</code> field, or it will throw an error.</p>
+<p>Frontmatter is written as YAML between <code>---</code> delimiters at the top of your markdown file:</p>
+<pre><code class="language-yaml">---
+title: &quot;Your Page Title&quot;
+date: 2024-01-15
+tags: [&quot;golang&quot;, &quot;web&quot;]
+collections: [&quot;posts&quot;]
+---
+</code></pre>
+<h2 id="frontmatter-fields-reference">Frontmatter Fields Reference</h2>
+<p><strong>Required:</strong></p>
+<ul>
+<li><code>title</code> - The page title (used in HTML <code>&lt;title&gt;</code> and navigation)</li>
+</ul>
+<p><strong>Optional Fields:</strong></p>
+<ul>
+<li><code>date</code> - Publication date in <code>YYYY-MM-DD</code> format</li>
+<li><code>description</code> - Page description (meta tags, collection previews)</li>
+<li><code>authors</code> - Array of author names: <code>[&quot;Alice&quot;, &quot;Bob&quot;]</code></li>
+<li><code>tags</code> - Array of topic tags: <code>[&quot;golang&quot;, &quot;web&quot;]</code></li>
+<li><code>collections</code> - Array of collection names: <code>[&quot;posts&quot;, &quot;featured&quot;]</code></li>
+<li><code>draft</code> - Set to <code>true</code> to exclude from builds (unless <code>-d</code> flag used)</li>
+<li><code>layout</code> - Custom layout template name (without <code>.html</code>)</li>
+<li><code>previewimage</code> - URL to preview image for social sharing</li>
+<li><code>scripts</code> - Array of page-specific JS files to include</li>
+<li><code>toc</code> - Set to <code>true</code> to auto-generate table of contents</li>
+<li><code>customFields</code> - Array of custom key-value pairs for template access</li>
+</ul>
+<hr>
+<h2 id="frontmatter-examples">Frontmatter Examples</h2>
+<h3 id="basic-page-frontmatter">Basic Page Frontmatter</h3>
+<pre><code class="language-yaml">---
+title: &quot;My Blog Post&quot;
+date: 2024-01-15
+description: &quot;A brief description of this post&quot;
+authors: [&quot;John Doe&quot;]
+tags: [&quot;golang&quot;, &quot;ssg&quot;]
+collections: [&quot;posts&quot;]
+toc: true
+---
+</code></pre>
+<h3 id="draft-post">Draft Post</h3>
+<pre><code class="language-yaml">---
+title: &quot;Work in Progress&quot;
+date: 2024-01-15
+draft: true
+---
+</code></pre>
+<h3 id="custom-layout">Custom Layout</h3>
+<pre><code class="language-yaml">---
+title: &quot;Special Page&quot;
+layout: &quot;custom-layout&quot;
+scripts: 
+  - &quot;/static/special.js&quot;
+---
+</code></pre>
+<h3 id="collection-page">Collection Page</h3>
+<pre><code class="language-yaml">---
+title: &quot;Building Anna: A Static Site Generator&quot;
+date: 2024-01-01
+collections: [&quot;posts&quot;, &quot;anna&quot;]
+tags: [&quot;golang&quot;, &quot;static-site&quot;, &quot;development&quot;]
+previewimage: &quot;/static/images/anna-preview.png&quot;
+---
+</code></pre>
+<h3 id="complex-example-with-multiple-authors-and-custom-fields">Complex Example with Multiple Authors and Custom Fields</h3>
+<pre><code class="language-yaml">---
+title: &quot;Collaborative Technical Article&quot;
+date: 2024-01-20
+authors: [&quot;Alice Smith&quot;, &quot;Bob Johnson&quot;]
+description: &quot;Deep dive into static site generation&quot;
+tags: [&quot;golang&quot;, &quot;performance&quot;, &quot;web&quot;]
+collections: [&quot;tutorials&quot;, &quot;featured&quot;]
+toc: true
+previewimage: &quot;/static/preview.png&quot;
+scripts:
+  - &quot;/static/scripts/interactive.js&quot;
+customFields:
+  - difficulty: &quot;advanced&quot;
+    readTime: &quot;20 min&quot;
+    topic: &quot;architecture&quot;
+---
+</code></pre>
+<h2 id="accessing-frontmatter-in-templates">Accessing Frontmatter in Templates</h2>
+<p>Frontmatter values are accessible in layout templates through the <code>Frontmatter</code> field:</p>
+<pre><code class="language-html">&lt;!-- Access title --&gt;
+&lt;h1&gt;{{ $PageData.Frontmatter.Title }}&lt;/h1&gt;
+
+&lt;!-- Access authors --&gt;
+{{range $PageData.Frontmatter.Authors}}
+&lt;p&gt;Author: {{.}}&lt;/p&gt;
+{{end}}
+
+&lt;!-- Access tags --&gt;
+{{range $PageData.Frontmatter.Tags}}
+&lt;a href=&quot;/tags/{{.}}.html&quot;&gt;{{.}}&lt;/a&gt;
+{{end}}
+
+&lt;!-- Conditional rendering --&gt;
+{{if $PageData.Frontmatter.Toc}}
+&lt;div class=&quot;toc&quot;&gt;{{ $PageData.Body | toc }}&lt;/div&gt;
+{{end}}
+</code></pre>
+<hr>
+<h1 id="body--markdown">Body &amp; Markdown</h1>
+<p>Anna uses <a href="https://github.com/yuin/goldmark">Goldmark</a> to render markdown files, which is fully CommonMark compliant. This means your markdown works across different platforms and tools.</p>
+<h2 id="markdown-extensions">Markdown Extensions</h2>
+<p>Anna includes several powerful Goldmark extensions for enhanced functionality:</p>
+<h3 id="anchors">Anchors</h3>
+<p>The <a href="https://github.com/abhinav/goldmark-anchor">anchor extension</a> automatically adds linkable anchor elements next to all headings:</p>
+<pre><code class="language-markdown">## Getting Started
+
+&lt;!-- Renders with automatic anchor: https://example.com/page.html#getting-started --&gt;
+</code></pre>
+<h3 id="figures">Figures</h3>
+<p>The <a href="https://github.com/mangoumbrella/goldmark-figure">figure extension</a> converts images in paragraphs to HTML <code>&lt;figure&gt;</code> elements for semantic markup and better styling:</p>
+<pre><code class="language-markdown">![A descriptive alt text](images/diagram.png)
+
+&lt;!-- Renders as: &lt;figure&gt;&lt;img src=&quot;...&quot;/&gt;&lt;/figure&gt; --&gt;
+</code></pre>
+<h3 id="table-of-contents">Table of Contents</h3>
+<p>The <a href="https://github.com/abhinav/goldmark-toc">toc extension</a> enables automatic table of contents generation. Enable with frontmatter:</p>
+<pre><code class="language-yaml">---
+title: &quot;Long Article&quot;
+toc: true
+---
+</code></pre>
+<p>This generates a clickable table of contents from all <code>&lt;h2&gt;</code> and <code>&lt;h3&gt;</code> headings in the page.</p>
+<h2 id="markdown-best-practices">Markdown Best Practices</h2>
+<ol>
+<li><strong>Use semantic headings</strong> - Start with H1 (one per page), then H2, H3, etc.</li>
+<li><strong>Keep paragraphs short</strong> - Easier to read and understand</li>
+<li><strong>Use code blocks with syntax highlighting</strong> - Specify language: <code>```go</code> for Go, <code>```html</code> for HTML, etc.</li>
+<li><strong>Include alt text for images</strong> - Important for accessibility and SEO</li>
+<li><strong>Use emphasis wisely</strong> - Prefer <em>italics</em> over <em>underscores</em> for consistency</li>
+</ol>
+<hr>
+<h1 id="static-assets">Static assets</h1>
+<p>Static files like stylesheets, scripts, images, and fonts are served without modification. Anna supports multiple asset directories:</p>
+<h2 id="asset-directories">Asset Directories</h2>
+<ul>
+<li><strong><code>static/</code></strong> - Global static assets (recommended)
+<ul>
+<li>Copied to <code>rendered/static/</code></li>
+<li>Use for CSS, JS, fonts, reusable images</li>
+<li>Reference as <code>/static/...</code></li>
+</ul>
+</li>
+<li><strong><code>content/</code></strong> - Content-local assets
+<ul>
+<li>Images alongside markdown files</li>
+<li>Automatically copied to <code>rendered/</code></li>
+<li>Use for post-specific images and diagrams</li>
+</ul>
+</li>
+<li><strong><code>public/</code></strong> - Root-level assets
+<ul>
+<li>Copied directly to <code>rendered/</code></li>
+<li>Use for robots.txt, favicon.ico, .well-known files</li>
+<li>Reference from root: <code>/file.txt</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="images">Images</h2>
+<p>Reference images in your markdown with absolute paths:</p>
+<pre><code class="language-markdown">&lt;!-- Global image --&gt;
+![Logo](/static/images/logo.png)
+
+&lt;!-- Post-specific image (in content/posts/) --&gt;
+![Diagram](images/diagram.png)
+
+&lt;!-- Root-level image --&gt;
+![Icon](/favicon.ico)
+</code></pre>
+<h2 id="css">CSS</h2>
+<p>Add stylesheets to your layout files:</p>
+<pre><code class="language-html">&lt;!-- External stylesheet in static/ --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/static/styles/main.css&quot;&gt;
+
+&lt;!-- Inline styles --&gt;
+&lt;style&gt;
+  body { font-family: sans-serif; }
+&lt;/style&gt;
+
+&lt;!-- Inline on elements --&gt;
+&lt;div style=&quot;color: red;&quot;&gt;Error message&lt;/div&gt;
+</code></pre>
+<p>Set the global theme in <code>config.json</code>:</p>
+<pre><code class="language-json">{
+  &quot;themeURL&quot;: &quot;/static/styles/theme.css&quot;
+}
+</code></pre>
+<h2 id="javascript">JavaScript</h2>
+<p>Include scripts in layouts or pages:</p>
+<pre><code class="language-html">&lt;!-- Global scripts in layout files --&gt;
+&lt;script src=&quot;/static/scripts/analytics.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- Page-specific scripts via frontmatter --&gt;
+</code></pre>
+<p>Frontmatter:</p>
+<pre><code class="language-yaml">scripts:
+  - &quot;/static/scripts/interactive.js&quot;
+  - &quot;/static/scripts/widgets.js&quot;
+</code></pre>
+<h2 id="fonts">Fonts</h2>
+<p>Store font files in <code>static/fonts/</code>:</p>
+<pre><code class="language-html">&lt;style&gt;
+  @font-face {
+    font-family: 'CustomFont';
+    src: url('/static/fonts/custom-font.ttf');
+  }
+&lt;/style&gt;
+</code></pre>
+<h2 id="asset-organization-best-practices">Asset Organization Best Practices</h2>
+<pre><code>site/static/
+├── styles/
+│   ├── main.css
+│   ├── theme.css
+│   └── components/
+│       ├── button.css
+│       └── card.css
+├── scripts/
+│   ├── app.js
+│   └── utils/
+│       ├── helpers.js
+│       └── api.js
+├── images/
+│   ├── logo.png
+│   ├── icons/
+│   └── backgrounds/
+└── fonts/
+    ├── opensans.ttf
+    └── roboto.ttf
+</code></pre>
+<hr>
+<h1 id="development-workflow">Development Workflow</h1>
+<h2 id="building-the-site">Building the Site</h2>
+<p>Anna provides several ways to build and serve your site:</p>
+<h3 id="basic-build">Basic Build</h3>
+<pre><code class="language-bash"># Build the site once
+anna
+
+# Build with drafts included
+anna -d
+
+# Build and serve locally
+anna -s
+
+# Build and serve with drafts
+anna -s -d
+</code></pre>
+<h3 id="using-make">Using Make</h3>
+<p>The included Makefile provides convenient build targets:</p>
+<pre><code class="language-bash"># Build the site
+make build
+
+# Clean build artifacts
+make clean
+
+# Run tests
+make tests
+
+# Serve the site with live reload
+make serve
+</code></pre>
+<h2 id="live-reloading">Live Reloading</h2>
+<p>When running with the <code>-s</code> flag, Anna includes live reload functionality:</p>
+<ol>
+<li>The server watches for file changes in <code>content/</code>, <code>layout/</code>, and <code>static/</code></li>
+<li>When changes are detected, the site is automatically rebuilt</li>
+<li>Connected browsers automatically refresh to show changes</li>
+<li>Live reload scripts are injected into pages during development</li>
+</ol>
+<h2 id="file-watching">File Watching</h2>
+<p>Anna monitors the following directories for changes:</p>
+<ul>
+<li><code>content/</code> - Markdown files and assets</li>
+<li><code>layout/</code> - HTML templates and partials</li>
+<li><code>static/</code> - Static assets (CSS, JS, images)</li>
+<li><code>site/config.json</code> - Site configuration</li>
+</ul>
+<p>Changes to any files in these directories trigger a rebuild.</p>
+<hr>
+<h1 id="advanced-features">Advanced Features</h1>
+<h2 id="custom-frontmatter-fields">Custom Frontmatter Fields</h2>
+<p>Beyond the built-in frontmatter fields, you can add custom fields to support your specific needs:</p>
+<pre><code class="language-yaml">---
+title: &quot;Advanced Topics&quot;
+customFields:
+  - category: &quot;Tutorial&quot;
+    difficulty: &quot;advanced&quot;
+    readTime: &quot;15 min&quot;
+  - prerequisites:
+      - &quot;golang-basics&quot;
+      - &quot;web-development&quot;
+---
+</code></pre>
+<p>Access custom fields in templates:</p>
+<pre><code class="language-html">{{range $PageData.Frontmatter.CustomFields}}
+  {{range $key, $value := .}}
+    &lt;span&gt;{{$key}}: {{$value}}&lt;/span&gt;
+  {{end}}
+{{end}}
+</code></pre>
+<h2 id="multiple-authors">Multiple Authors</h2>
+<p>Track multiple authors for collaborative content:</p>
+<pre><code class="language-yaml">---
+title: &quot;Collaborative Post&quot;
+authors: [&quot;Alice&quot;, &quot;Bob&quot;, &quot;Charlie&quot;]
+---
+</code></pre>
+<p>Display in templates:</p>
+<pre><code class="language-html">&lt;div class=&quot;authors&quot;&gt;
+  By: {{range $PageData.Frontmatter.Authors}}{{.}}{{end}}
+&lt;/div&gt;
+</code></pre>
+<h2 id="page-level-scripts">Page-Level Scripts</h2>
+<p>Add scripts that run only on specific pages:</p>
+<pre><code class="language-yaml">---
+title: &quot;Interactive Demo&quot;
+scripts:
+  - &quot;/static/scripts/interactive.js&quot;
+  - &quot;/static/scripts/visualization.js&quot;
+---
+</code></pre>
+<p>These scripts are injected into the page in your layout:</p>
+<pre><code class="language-html">{{range $PageData.Frontmatter.JSFiles}}
+  &lt;script src=&quot;{{.}}&quot;&gt;&lt;/script&gt;
+{{end}}
+</code></pre>
+<h2 id="nested-collections">Nested Collections</h2>
+<p>Group content hierarchically:</p>
+<pre><code class="language-yaml">---
+title: &quot;Getting Started with Golang&quot;
+collections: [&quot;tutorials&quot;, &quot;golang-101&quot;, &quot;beginner-friendly&quot;]
+---
+</code></pre>
+<p>This creates:</p>
+<ul>
+<li><code>collections/tutorials.html</code></li>
+<li><code>collections/golang-101.html</code></li>
+<li><code>collections/beginner-friendly.html</code></li>
+</ul>
+<h2 id="live-reload-script-injection">Live Reload Script Injection</h2>
+<p>During development (when using <code>-s</code>), Anna automatically injects a live reload script. This script:</p>
+<ol>
+<li>Watches for server-side changes</li>
+<li>Automatically reloads the browser</li>
+<li>Is removed in production builds</li>
+</ol>
+<h2 id="json-index-structure">JSON Index Structure</h2>
+<p>The generated <code>index.json</code> contains searchable metadata:</p>
+<pre><code class="language-json">{
+  &quot;index.html&quot;: {
+    &quot;title&quot;: &quot;Home&quot;,
+    &quot;url&quot;: &quot;/index.html&quot;,
+    &quot;tags&quot;: [&quot;home&quot;],
+    &quot;description&quot;: &quot;Welcome to my site&quot;,
+    &quot;authors&quot;: [&quot;Admin&quot;],
+    &quot;date&quot;: 1234567890
+  },
+  &quot;posts/golang-tutorial.html&quot;: {
+    &quot;title&quot;: &quot;Learning Golang&quot;,
+    &quot;url&quot;: &quot;/posts/golang-tutorial.html&quot;,
+    &quot;tags&quot;: [&quot;golang&quot;, &quot;tutorial&quot;],
+    &quot;description&quot;: &quot;A beginner's guide to Golang&quot;,
+    &quot;authors&quot;: [&quot;Expert&quot;],
+    &quot;date&quot;: 1234567890
+  }
+}
+</code></pre>
+<p>You can use this in client-side search implementations:</p>
+<pre><code class="language-javascript">// Fetch the index
+fetch('/index.json')
+  .then(r =&gt; r.json())
+  .then(index =&gt; {
+    // Implement search using this index
+  });
+</code></pre>
+<h2 id="profiling-and-performance-analysis">Profiling and Performance Analysis</h2>
+<p>Run Anna with profiling to identify performance bottlenecks:</p>
+<pre><code class="language-sh">anna --prof
+</code></pre>
+<p>This generates profiling data that shows:</p>
+<ul>
+<li>Rendering time per page</li>
+<li>Template processing time</li>
+<li>Markdown parsing time</li>
+<li>File I/O time</li>
+</ul>
+<hr>
+<h1 id="collections--tags">Collections &amp; Tags</h1>
+<p>Anna supports two powerful organizational features for grouping content: Collections and Tags.</p>
+<h2 id="collections">Collections</h2>
+<p>Collections allow you to organize related content (e.g., blog posts, documentation, tutorials) into separate sections of your site.</p>
+<h3 id="creating-collections">Creating Collections</h3>
+<p>Add <code>collections</code> frontmatter to your pages:</p>
+<pre><code class="language-yaml">---
+title: &quot;My Blog Post&quot;
+collections: [&quot;posts&quot;, &quot;featured&quot;]
+---
+</code></pre>
+<h3 id="automatic-collection-pages">Automatic Collection Pages</h3>
+<p>Anna automatically generates:</p>
+<ul>
+<li><code>collections.html</code> - Lists all collection categories</li>
+<li><code>collections/[collection-name].html</code> - Dedicated page for each collection</li>
+<li><code>collections/[collection-name]/[page-name].html</code> - Individual collection sub-pages</li>
+</ul>
+<h3 id="configuring-collection-layouts">Configuring Collection Layouts</h3>
+<p>Specify custom layouts for collection pages in <code>config.json</code>:</p>
+<pre><code class="language-json">{
+  &quot;collectionLayouts&quot;: {
+    &quot;collections/posts.html&quot;: &quot;all-posts&quot;,
+    &quot;collections/tutorials.html&quot;: &quot;tutorials-layout&quot;
+  }
+}
+</code></pre>
+<h2 id="tags">Tags</h2>
+<p>Tags provide fine-grained categorization of content and enable topic-based navigation.</p>
+<h3 id="adding-tags">Adding Tags</h3>
+<p>Add <code>tags</code> frontmatter to your pages:</p>
+<pre><code class="language-yaml">---
+title: &quot;Getting Started with Go&quot;
+tags: [&quot;golang&quot;, &quot;beginner&quot;, &quot;tutorial&quot;]
+---
+</code></pre>
+<h3 id="automatic-tag-pages">Automatic Tag Pages</h3>
+<p>Anna automatically generates:</p>
+<ul>
+<li><code>tags.html</code> - Cloud view of all tags with frequency</li>
+<li><code>tags/[tag-name].html</code> - Pages for each individual tag</li>
+<li>Filtered content on each tag page</li>
+</ul>
+<h3 id="using-tags-in-templates">Using Tags in Templates</h3>
+<pre><code class="language-html">&lt;!-- Link to a tag page --&gt;
+{{range $PageData.Frontmatter.Tags}}
+  &lt;a href=&quot;/tags/{{.}}.html&quot;&gt;{{.}}&lt;/a&gt;
+{{end}}
+
+&lt;!-- Check if a page has a specific tag --&gt;
+{{if strSliceContains $PageData.Frontmatter.Tags &quot;featured&quot;}}
+  &lt;span class=&quot;featured-badge&quot;&gt;Featured&lt;/span&gt;
+{{end}}
+</code></pre>
+<hr>
+<h1 id="site-generation">Site Generation</h1>
+<h2 id="automatic-file-generation">Automatic File Generation</h2>
+<p>When you run Anna, it automatically generates several files in the <code>rendered/</code> directory:</p>
+<h3 id="sitemap">Sitemap</h3>
+<p><code>rendered/sitemap.xml</code> - XML sitemap for search engines containing all pages, their modification dates, and change frequency.</p>
+<h3 id="rssatom-feed">RSS/Atom Feed</h3>
+<p><code>rendered/feed.xml</code> - Atom feed with recent pages for RSS readers (sorted by date, latest first)</p>
+<h3 id="json-index">JSON Index</h3>
+<p><code>rendered/index.json</code> - Searchable index of all pages with metadata:</p>
+<ul>
+<li>Page titles</li>
+<li>URLs</li>
+<li>Tags</li>
+<li>Description</li>
+<li>Preview images</li>
+<li>Authors</li>
+</ul>
+<p>This is useful for building search functionality on your site.</p>
+<h3 id="robotstxt">Robots.txt</h3>
+<p><code>rendered/robots.txt</code> - Web crawler directives (copied from <code>layout/robots.txt</code>)</p>
+<hr>
+<h1 id="site-configuration">Site configuration</h1>
+<p>The <code>config.json</code> file stores configuration for your site's layout and behavior. It's located in <code>site/layout/config.json</code> and is required.</p>
+<h2 id="configuration-fields">Configuration Fields</h2>
+<ul>
+<li><code>navbar</code> - Array of navigation links (format: <code>[{&quot;Label&quot;: &quot;path/to/page.html&quot;}]</code>)</li>
+<li><code>baseURL</code> - Base URL of your site (used for sitemaps, feeds, SEO; no trailing slash)</li>
+<li><code>siteTitle</code> - Title of your website</li>
+<li><code>siteScripts</code> - Global JavaScript files to include on all pages</li>
+<li><code>author</code> - Default author name</li>
+<li><code>copyright</code> - Copyright notice for your site</li>
+<li><code>themeURL</code> - URL to your main stylesheet (e.g., <code>/static/style.css</code>)</li>
+<li><code>socials</code> - Social media links (format: <code>{&quot;twitter&quot;: &quot;https://twitter.com/...&quot;, ...}</code>)</li>
+<li><code>collectionLayouts</code> - Map collection URLs to custom layout templates</li>
+<li><code>customFields</code> - Additional arbitrary key-value pairs for your layouts</li>
+</ul>
+<h2 id="complete-example">Complete Example</h2>
+<pre><code class="language-json">{
+  &quot;navbar&quot;: [
+    {&quot;Home&quot;: &quot;index.html&quot;},
+    {&quot;Blog&quot;: &quot;collections/posts.html&quot;},
+    {&quot;Tags&quot;: &quot;tags.html&quot;},
+    {&quot;About&quot;: &quot;about.html&quot;}
+  ],
+  &quot;baseURL&quot;: &quot;https://example.com&quot;,
+  &quot;siteTitle&quot;: &quot;My Awesome Site&quot;,
+  &quot;siteScripts&quot;: [
+    &quot;/static/scripts/analytics.js&quot;,
+    &quot;/static/scripts/search.js&quot;
+  ],
+  &quot;author&quot;: &quot;Jane Doe&quot;,
+  &quot;copyright&quot;: &quot;Copyright 2024. All rights reserved.&quot;,
+  &quot;themeURL&quot;: &quot;/static/styles/main.css&quot;,
+  &quot;socials&quot;: {
+    &quot;github&quot;: &quot;https://github.com/yourname&quot;,
+    &quot;twitter&quot;: &quot;https://twitter.com/yourname&quot;,
+    &quot;email&quot;: &quot;you@example.com&quot;
+  },
+  &quot;collectionLayouts&quot;: {
+    &quot;collections/posts.html&quot;: &quot;posts-layout&quot;,
+    &quot;collections/tutorials.html&quot;: &quot;tutorials-layout&quot;
+  },
+  &quot;customFields&quot;: [
+    {
+      &quot;company&quot;: &quot;Acme Corp&quot;,
+      &quot;supportEmail&quot;: &quot;support@example.com&quot;
+    }
+  ]
+}
+</code></pre>
+<h2 id="seo-configuration">SEO Configuration</h2>
+<p>The <code>baseURL</code> field is critical for SEO:</p>
+<ul>
+<li>Used in <code>sitemap.xml</code> to generate absolute URLs</li>
+<li>Included in <code>feed.xml</code> for RSS readers</li>
+<li>Used for canonical URLs in metadata</li>
+<li>Helps search engines discover and index your site</li>
+</ul>
+<p>Example with baseURL: <code>&quot;https://example.com&quot;</code></p>
+<ul>
+<li>Sitemap links: <code>https://example.com/posts/index.html</code></li>
+<li>Feed links: <code>https://example.com/about.html</code></li>
+</ul>
+<hr>
+<h1 id="best-practices">Best Practices</h1>
+<h2 id="content-organization">Content Organization</h2>
+<ol>
+<li><strong>Use Collections for major sections</strong> - e.g., blog posts, documentation, tutorials</li>
+<li><strong>Use Tags for topics</strong> - e.g., &quot;golang&quot;, &quot;web-development&quot;, &quot;performance&quot;</li>
+<li><strong>Keep frontmatter consistent</strong> - Set common fields across related pages</li>
+<li><strong>Use meaningful filenames</strong> - e.g., <code>getting-started-with-go.md</code> rather than <code>post1.md</code></li>
+</ol>
+<h2 id="performance-optimization">Performance Optimization</h2>
+<ol>
+<li><strong>Minimize custom frontmatter fields</strong> - Only add what you need</li>
+<li><strong>Optimize images</strong> - Compress images before adding to <code>static/</code></li>
+<li><strong>Defer non-critical scripts</strong> - Use <code>defer</code> attribute in layout partials</li>
+<li><strong>Leverage live reload</strong> - Use <code>-s</code> flag during development for fast iteration</li>
+</ol>
+<h2 id="template-design">Template Design</h2>
+<ol>
+<li>
+<p><strong>Use partials for reusable components</strong> - e.g., headers, footers, sidebars</p>
+</li>
+<li>
+<p><strong>Keep layouts DRY</strong> - Don't repeat HTML across multiple templates</p>
+</li>
+<li>
+<p><strong>Check data existence</strong> - Use Go template conditionals:</p>
+</li>
+<li>
+<p><strong>Use semantic HTML</strong> - For better SEO and accessibility</p>
+<pre><code class="language-html">{{if $PageData.Frontmatter.PreviewImage}}
+  &lt;img src=&quot;{{$PageData.Frontmatter.PreviewImage}}&quot; /&gt;
+{{end}}
+</code></pre>
+</li>
+</ol>
+<h2 id="asset-management">Asset Management</h2>
+<ol>
+<li><strong>Static assets in <code>static/</code></strong> - Stylesheets, JavaScript, fonts</li>
+<li><strong>Images in <code>content/</code></strong> - Keep images with related markdown</li>
+<li><strong>Keep directory flat</strong> - Avoid deep nesting in <code>static/</code></li>
+<li><strong>Reference with absolute paths</strong> - e.g., <code>/static/images/logo.png</code></li>
+</ol>
+<h2 id="seo-optimization">SEO Optimization</h2>
+<ol>
+<li><strong>Set meaningful titles</strong> - Use descriptive, keyword-rich titles</li>
+<li><strong>Write descriptions</strong> - Add <code>description</code> frontmatter for snippets</li>
+<li><strong>Add preview images</strong> - Use <code>previewimage</code> for social sharing</li>
+<li><strong>Use keywords in tags</strong> - Make tags searchable and relevant</li>
+<li><strong>Structure with headings</strong> - Use proper heading hierarchy for accessibility</li>
+<li><strong>Enable table of contents</strong> - Use <code>toc: true</code> for long-form content</li>
+</ol>
+
+            </section>
+        </article>
+
+        
+    </main>
+
+    
+<footer class="site-footer">
+    <div class="container footer-inner">
+        <div class="copyright">Rendered using <a href="https://github.com/anna-ssg/anna">anna</a> ❤️</div>
+        <div class="credits">&copy; <span id="site-year"></span> anna-docs</div>
+    </div>
+    <script> (function () { var el = document.getElementById('site-year'); if (el) el.textContent = new Date().getFullYear(); })();
+
+         
+        (function () {
+            var ham = document.getElementById('hamburger'); if (!ham) return;
+
+            function setNavStateOnLoadOrResize() {
+                
+                if (window.innerWidth > 700) {
+                    document.body.classList.remove('nav-open');
+                    ham.setAttribute('aria-expanded', 'false');
+                } else {
+                    
+                    document.body.classList.remove('nav-open');
+                    ham.setAttribute('aria-expanded', 'false');
+                }
+            }
+
+            function toggleNav() {
+                var isOpen = document.body.classList.toggle('nav-open');
+                ham.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            }
+
+            
+            setNavStateOnLoadOrResize();
+
+            ham.addEventListener('click', toggleNav);
+            document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { document.body.classList.remove('nav-open'); ham.setAttribute('aria-expanded', 'false'); } });
+            window.addEventListener('resize', setNavStateOnLoadOrResize);
+            
+            document.addEventListener('click', function (e) { if (!document.body.classList.contains('nav-open')) return; if (!e.target.closest || !e.target.closest('.site-header')) { document.body.classList.remove('nav-open'); ham.setAttribute('aria-expanded', 'false'); } });
+        })();</script>
+</footer>
+
+</body>
+
+</html>
+
