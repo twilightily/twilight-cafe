@@ -1,23 +1,23 @@
 {
   "navbar": [
     {
-      "Quick Start": "quick-start.html"
+      "Photos": "quick-start.html"
     },
     {
-      "Docs": "docs.html"
+      "Resume": "docs.html"
     },
     {
-      "Dev Guide": "developer-guide.html"
+      "Art&Design": "developer-guide.html"
     },
     {
-      "Tags": "tags.html"
+      "Posts": "tags.html"
     },
     {
-      "Anna Blog": "posts/building-anna/index.html"
+      "Contact": "posts/building-anna/index.html"
     }
   ],
   "baseURL": "https://anna-docs.netlify.app",
-  "siteTitle": "anna-docs",
+  "siteTitle": "Twilight-Cafe",
   "siteScripts": [
     "graph.js"
   ],

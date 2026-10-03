@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrainsMono:ital,wght@0,100..800;1,100..800&display=swap");
 
 :root {
     --font-family-sans:
@@ -33,7 +34,7 @@ body {
 
     font-size: 1.05rem;
     font-weight: 400;
-    font-family: var(--font-family-sans);
+    font-family: "JetBrainsMono";
     background: var(--color-background);
     color: var(--color-text);
     -webkit-font-smoothing: antialiased;
@@ -45,10 +46,10 @@ body {
 /* Ensure paragraphs have comfortable spacing */
 p {
     margin: 0 0 1.15rem 0;
-            color: #A675A1;
-            font-size: 30px;
+            color: #d398cd;
+            font-size: 18px;
             text-align: left;
-            font-family: rockwell;
+            font-family: "JetBrainsMono";
         
 }
 
@@ -62,7 +63,7 @@ h1 {
 h2,
 h3{
             color: #7BDFF2;
-            font-size: 30px;
+            font-size: 60px;
             text-align: left;
             font-family: lucida sans typewriter;
         }
@@ -76,7 +77,7 @@ h6 {
 html,
 body {
     min-width: 0;
-    background-color: #470130;
+    background-color: #240127;
             
 }
 
@@ -1678,21 +1679,21 @@ a>code {
         --color-text-dim: #8b949e;
         --color-text-low: #8b949e80;
 
-        --color-background: #0d1117;
+        --color-background: #1e0229;
         --color-background-dim: #0d11177a;
-        --color-background-low: #0d111750;
+        --color-background-low: #200d2f50;
         --color-background-contrast: #58a6ff;
 
         --inline-code-bg: #161b22;
         --selection-bg: #1f6feb33;
 
-        --color-primary: #58a6ff;
+        --color-primary: #54afff;
         --color-primary-dim: #79c0ff;
-        --color-primary-low: #1f6feb33;
+        --color-primary-low: #340e6a33;
 
         --color-border: #30363d;
         --color-hr: rgba(139, 148, 158, 0.2);
-        --color-surface: #161b22;
+        --color-surface: #240127;
     }
 
     .search-overlay {
@@ -1761,7 +1762,7 @@ a>code {
 
 /* Header spacing */
 .site-header {
-    padding: 0.75rem 0;
+    padding: 0.5rem 0;
     position: relative;
     /* allow absolute mobile nav to position relative to header */
     z-index: 20;
@@ -1950,7 +1951,7 @@ a>code {
 .site-footer {
     border-top: none;
     border-bottom: none;
-    padding: 0.75rem 0;
+    padding: 0.5rem 0;
 }
 
 /* Optional subtle separator for very short content pages */
