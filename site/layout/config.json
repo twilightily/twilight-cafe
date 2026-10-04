@@ -1,19 +1,19 @@
 {
   "navbar": [
     {
-      "Photos": "quick-start.html"
+      "Photos": "photos.html"
     },
     {
       "Resume": "docs.html"
     },
     {
-      "Art&Design": "developer-guide.html"
+      "Art&Design": "design.html"
     },
     {
-      "Posts": "tags.html"
+      "Posts": "posts/building-anna/index.html"
     },
     {
-      "Contact": "posts/building-anna/index.html"
+      "Contact": "tags.html"
     }
   ],
   "baseURL": "https://anna-docs.netlify.app",

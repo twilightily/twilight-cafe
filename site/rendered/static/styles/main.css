@@ -191,6 +191,7 @@ pre>code {
 
 .body {
     padding: 0;
+	margin-bottom: 3rem;
 }
 
 /* Wider layout on larger screens */
@@ -1121,7 +1122,7 @@ nav a,
     text-decoration-color: transparent;
     margin: 0 1rem;
     font-size: 1.15rem;
-    font-weight: 700;
+    font-weight: 900;
     letter-spacing: 0.015em;
     background: transparent;
     border: none;

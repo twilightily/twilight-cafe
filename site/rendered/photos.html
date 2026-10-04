@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Developer Guide</title>
+    <title>Twilight-Photos</title>
     <meta name="color-scheme" content="light dark" />
 
     
@@ -48,7 +48,7 @@
     
 
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Developer Guide" />
+    <meta property="og:title" content="Twilight-Photos" />
     <meta property="og:description" content="" />
     <meta property="og:image" content="" />
 
@@ -71,13 +71,13 @@
 <header class="site-header">
     <div class="container header-inner">
         <div class="brand">
-            <a href="/" aria-label="Twilight-Cafe"><img src="/static/images/anna.png"
+            <a href="/" aria-label="Twilight-Cafe"><img src="/static/images/unicorn.png"
                     alt="Twilight-Cafe" class="brand-logo" /></a>
         </div>
         <nav id="mobile-nav" class="site-nav" aria-label="Main navigation">
             
             
-            <a class="navitem" href="/quick-start.html">Photos</a>
+            <a class="navitem" href="/photos.html">Photos</a>
             
             
             
@@ -85,15 +85,15 @@
             
             
             
-            <a class="navitem" href="/developer-guide.html">Art&amp;Design</a>
+            <a class="navitem" href="/design.html">Art&amp;Design</a>
             
             
             
-            <a class="navitem" href="/tags.html">Posts</a>
+            <a class="navitem" href="/posts/building-anna/index.html">Posts</a>
             
             
             
-            <a class="navitem" href="/posts/building-anna/index.html">Contact</a>
+            <a class="navitem" href="/tags.html">Contact</a>
             
             
         </nav>
@@ -111,17 +111,8 @@
 
                 
                 <div class="post-description">
-                    <h1>Developer Guide</h1>
-                    <div class="page-date">
-                        
-                        Published on 2024-04-28
-                        
-                    </div>
                     <div class="authors-placeholder">
-                        <p>
-                            
-                            
-                        </p>
+                        
                     </div>
                     <div class="tags-placeholder">
                         
@@ -129,65 +120,16 @@
                 </div>
                 
 
-                <p>This document explains the repository layout, development commands and how to contribute.</p>
-<h2 id="repository-layout-high-level">Repository layout (high level)</h2>
-<ul>
-<li><code>cmd/anna</code>        - CLI and server (main command)</li>
-<li><code>pkg/engine</code>      - core rendering engine</li>
-<li><code>pkg/parser</code>      - markdown parsing and helpers</li>
-<li><code>site/</code>           - example site used for docs and dogfooding</li>
-<li><code>test/</code>           - integration and expected output for tests</li>
-</ul>
-<h2 id="build--run">Build &amp; run</h2>
-<p>Build locally:</p>
-<pre><code class="language-bash">go build ./...
-</code></pre>
-<p>Run the CLI directly during development:</p>
-<pre><code class="language-bash">go run github.com/anna-ssg/anna/v4 -p ./site -s
-</code></pre>
-<p>Run only unit tests:</p>
-<pre><code class="language-bash">go test ./pkg/...
-</code></pre>
-<p>Run all tests and race detector:</p>
-<pre><code class="language-bash">go test ./... -v -race
-</code></pre>
-<h2 id="deploy-your-anna-site">Deploy your Anna site</h2>
-<p>Use the helper script at <a href="deploy.sh">deploy.sh</a> to fetch the latest release and run Anna against your site directory:</p>
-<pre><code class="language-bash">./deploy.sh
-</code></pre>
-<p>The script downloads the latest published release for Linux, extracts the binary, builds your site. Use this in CI workflows like GitHub Actions, Cloudflare Pages, Netlify, etc. to deploy your Anna site.</p>
-<h2 id="benchmarks--profiling">Benchmarks &amp; profiling</h2>
-<p>Run benchmarks and generate pprof data using the Makefile:</p>
-<pre><code class="language-bash">make bench
-# results and pprof files are in the profiles/ or test output directories
-</code></pre>
-<p>While serving you can view pprof endpoints at <code>http://localhost:8000/debug/pprof</code> (see <code>cmd/anna</code>).</p>
-<h2 id="makefile-targets">Makefile targets</h2>
-<pre><code>Targets:
-  build  : Build anna and render the site
-  serve  : Build anna, render and serve the site with live reload
-  tests  : Run all tests
-  bench  : Run the benchmark and generate pprof files
-  clean  : Remove the rendered site directory and test output
-</code></pre>
-<h2 id="contribution-workflow">Contribution workflow</h2>
-<ol>
-<li>Fork the repository and create a feature branch (eg. <code>feature/foo</code>).</li>
-<li>Write code, run <code>go fmt ./...</code> and add/update tests.</li>
-<li>Run <code>go test ./... -v</code> and verify all tests pass.</li>
-<li>Push your branch and open a Pull Request with a clear description and changelog.</li>
-</ol>
-<h3 id="development-tips">Development tips</h3>
-<ul>
-<li>Use <code>go vet</code> and <code>go test -race</code> while developing for correctness.</li>
-<li>Keep changes small and isolated; add tests for new behavior.</li>
-<li>Update <code>site/</code> when adding features that affect rendering or layouts so the docs can dogfood changes.</li>
-</ul>
-<hr>
+                <h2 id="some-of-the-photos-i-take">Some of the photos I take</h2>
+<p>I am by no means a professional photographer (yet ;) ) however everytime I see a really pretty scene I always have an idea of the exact angle I need to capture it's essence</p>
+<p>I also love taking photos for my friends and family! I want them to see themselves the way I see them and I absolutely love it when they love how they look in photos &lt;3</p>
 
             </section>
         </article>
+
+        
     </main>
+
     
 <footer class="site-footer">
     <div class="container footer-inner">
